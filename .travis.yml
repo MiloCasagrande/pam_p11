@@ -1,5 +1,13 @@
 language: c
 
+matrix:
+  include:
+    - compiler: clang
+      os: osx
+    - compiler: gcc
+      os: linux
+    - env: DO_COVERITY_SCAN=yes
+
 env:
   global:
     # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
@@ -18,13 +26,14 @@ addons:
     - libpam0g-dev
     - autopoint
 
-matrix:
-  include:
-    - compiler: clang
-      os: osx
-    - compiler: gcc
-      os: linux
-    - env: DO_COVERITY_SCAN=yes
+before_install:
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+        brew update;
+        brew uninstall libtool;
+        brew install libtool;
+        brew install libp11 ccache;
+        export PATH="/usr/local/opt/ccache/libexec:$PATH";
+    fi
 
 before_script:
   - ./bootstrap
@@ -37,3 +46,9 @@ script:
   - if [ -z "${DO_COVERITY_SCAN}" ]; then
       make distcheck;
     fi
+
+cache:
+  apt: true
+  ccache: true
+  directories:
+     - $HOME/Library/Caches/Homebrew
