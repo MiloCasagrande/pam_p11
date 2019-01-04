@@ -33,6 +33,7 @@ before_install:
         brew install libtool;
         brew install libp11 ccache;
         export PATH="/usr/local/opt/ccache/libexec:$PATH";
+        export PATH="/usr/local/opt/gettext/bin:$PATH";
     fi
 
 before_script:
