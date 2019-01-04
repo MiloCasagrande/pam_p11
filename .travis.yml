@@ -31,7 +31,7 @@ before_install:
         brew update;
         brew uninstall libtool;
         brew install libtool;
-        brew install libp11 ccache;
+        brew install libp11 openssl ccache;
         export PATH="/usr/local/opt/ccache/libexec:$PATH";
         export PATH="/usr/local/opt/gettext/bin:$PATH";
     fi
