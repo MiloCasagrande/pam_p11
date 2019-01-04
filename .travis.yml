@@ -21,7 +21,9 @@ addons:
 matrix:
   include:
     - compiler: clang
+      os: osx
     - compiler: gcc
+      os: linux
     - env: DO_COVERITY_SCAN=yes
 
 before_script:
